@@ -15,152 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-  <style>
-    :root{
-      --bg:#000000;           /* main black theme */
-      --card:#0b0b0d;         /* slightly lighter card */
-      --muted:#9aa4b2;        /* muted text */
-      --text:#e6eef6;         /* main text */
-      --accent:#00d1ff;       /* bright accent (single color) */
-      --accent-dim: rgba(0, 209, 255, 0.12);
-      --glass: rgba(255,255,255,0.04);
-      --radius: 14px;
-    }
 
-    *{box-sizing: border-box; margin:0; padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter',system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      min-height:100vh;
-    }
-
-    /* Canvas background */
-    .bg-wrap{
-      position:fixed; inset:0; z-index:-1; pointer-events:none;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      overflow:hidden;
-    }
-    canvas{display:block; width:100%; height:100%}
-
-    /* Navbar */
-    nav{
-      position:fixed; left:0; right:0; top:0; z-index:1000;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-      border-bottom:1px solid rgba(255,255,255,0.03);
-      backdrop-filter: blur(6px);
-    }
-    .nav-inner{
-      max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:0.2px;
-    }
-    .brand .mark{
-      width:42px; height:42px; border-radius:10px; background:linear-gradient(180deg,var(--accent), #00a2d6);
-      display:flex; align-items:center; justify-content:center; color:#00131a; font-weight:900;
-      box-shadow:0 6px 18px rgba(0,209,255,0.08);
-      font-family:'JetBrains Mono', monospace;
-    }
-    .brand .title{font-size:1.05rem}
-
-    /* Nav links */
-    .nav-links{display:flex; gap:18px; align-items:center;}
-    .nav-links a{
-      color:var(--muted); text-decoration:none; font-weight:600; font-size:0.95rem;
-      padding:8px 10px; border-radius:8px;
-    }
-    .nav-links a:hover{ color:var(--accent); background:var(--glass) }
-
-    /* Hamburger for small */
-    .hamburger{display:none; background:transparent; border:0; color:var(--muted); font-size:1.25rem}
-    @media (max-width:880px){
-      .nav-links{display:none}
-      .hamburger{display:inline-flex}
-    }
-
-    /* Hero */
-    .hero{
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
-      padding:110px 20px 80px;
-    }
-    .hero-inner{ max-width:1100px; width:100%; display:grid; grid-template-columns: 360px 1fr; gap:48px; align-items:center;}
-    @media (max-width:880px){
-      .hero-inner{ grid-template-columns: 1fr; text-align:center; gap:28px }
-    }
-
-    .profile-card{
-      background:var(--card); border-radius:var(--radius); padding:26px; display:flex; flex-direction:column; align-items:center;
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    }
-    .avatar{
-      width:200px; height:200px; border-radius:50%; overflow:hidden; border:4px solid rgba(255,255,255,0.03); display:block;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 30px rgba(0,209,255,0.06);
-    }
-    .avatar img{ width:100%; height:100%; object-fit:cover; display:block }
-
-    .name{ font-weight:900; font-size:1.6rem; margin-top:16px; color:var(--text) }
-    .role{ color:var(--muted); margin-top:6px; font-weight:600 }
-
-    .cta-row{ display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; justify-content:center; width:100% }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:999px; text-decoration:none; font-weight:700;
-      border:1px solid rgba(255,255,255,0.03); font-size:0.95rem;
-    }
-    .btn-primary{ background:var(--accent); color:#00131a; box-shadow:0 8px 30px rgba(0,209,255,0.06)}
-    .btn-outline{ color:var(--accent); border-color:var(--accent); background:transparent }
-    .btn-ghost{ color:var(--muted); background:transparent; border:1px solid rgba(255,255,255,0.02) }
-
-    /* Hero text column */
-    .hero-text h1{ font-size:2.4rem; margin-bottom:8px; letter-spacing:-0.5px }
-    @media (max-width:880px){ .hero-text h1{ font-size:1.9rem } }
-    .hero-text p.lead{ color:var(--muted); font-size:1.05rem; margin-bottom:18px }
-    .hero-text p.small{ color:var(--muted); margin-bottom:22px }
-
-    /* Sections */
-    section{ padding:64px 20px; }
-    .container{ max-width:1100px; margin:0 auto }
-
-    .section-title{ font-size:1.6rem; font-weight:900; margin-bottom:8px; color:var(--text) }
-    .section-sub{ color:var(--muted); margin-bottom:20px }
-
-    /* Cards grid */
-    .grid{ display:grid; gap:20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
-      border-radius:12px; padding:18px; border:1px solid rgba(255,255,255,0.02);
-      transition: transform .28s ease, box-shadow .28s ease;
-    }
-    .card:hover{ transform: translateY(-8px); box-shadow: 0 18px 60px rgba(0,0,0,0.7) }
-
-    .card h3{ margin-bottom:6px; font-size:1.05rem }
-    .muted{ color:var(--muted); font-size:0.96rem; }
-
-    /* Skills list */
-    .skill-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px }
-    .skill-item{ padding:8px 10px; border-radius:8px; background:var(--glass); color:var(--muted); display:flex; justify-content:space-between; align-items:center }
-    .skill-item strong{ color:var(--text); font-weight:700 }
-
-    /* Contact & social */
-    .socials{ display:flex; gap:12px; margin-top:12px }
-    .socials a{ width:44px; height:44px; display:inline-grid; place-items:center; border-radius:10px; background:var(--card); border:1px solid rgba(255,255,255,0.02); color:var(--accent); text-decoration:none }
-    .socials a:hover{ transform:translateY(-6px) }
-
-    footer{ padding:36px 20px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.02) }
-
-    /* Reveal animations */
-    .reveal{ opacity:0; transform:translateY(20px); transition: all .6s cubic-bezier(.2,.9,.2,1) }
-    .reveal.active{ opacity:1; transform:none }
-
-    /* small tweaks */
-    .meta{ color:var(--muted); font-size:0.9rem }
-  </style>
+  <!-- styles.css-->
+   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <!-- Canvas Background -->
@@ -174,7 +31,7 @@
       <div class="brand">
         <div>
           <div class="title">Wency Herrera</div>
-          <div class="meta" style="font-size:0.78rem;">CS Student · Software Engineer</div>
+          <div class="meta" style="font-size:0.78rem;">CS · Software Developer</div>
         </div>
       </div>
 
@@ -211,24 +68,25 @@
           <img src="img/img_wenx.jpg" alt="Wency Herrera">
         </div>
         <div class="name">Wency Herrera</div>
-        <div class="role">Computer Science Student · Low-level Systems Programmer · Software Developer</div>
+        <div class="role">Computer Scientist · Systems Programmer · Software Developer</div>
 
         <div class="cta-row" style="margin-top:12px">
           <a href="#contact" class="btn btn-primary" title="Get in touch">Get In Touch</a>
           <a href="#skills" class="btn btn-outline" title="View skills">View Skills</a>
-          <a href="resume.pdf" download class="btn btn-ghost" title="Download resume">Download Resume</a>
+          <a href="resu_wenx.pdf" download class="btn btn-ghost" title="Download resume">Download Resume</a>
         </div>
 
         <div class="muted" style="margin-top:14px; text-align:center; font-size:0.92rem">
-          Passionate about competitive programming, algorithm design, computer maintenance, hardware troubleshooting, and Software Development.
+          Programming languages: C, C++, Java, MySQL <br>
+          Human languages: English (B1), Filipino (C2)
         </div>
       </aside>
 
       <section class="hero-text reveal" style="--delay:0.1s">
-        <h1>Building fast, reliable systems & elegant software</h1>
-        <p class="lead">He is strongly focused on learning low-level languages like Assembly, C and C++ for his continous learning about the theoretical computer science. He is also skilled on computer troubleshooting, hardware repair, and maintenance.</p>
+        <h1>/> Build it with attywenn</h1>
+        <p class="lead">He is a dedicated Computer Scientist with strong mastery of C++ and a solid foundation in computer hardware maintenance and system unit repair. Passionate about teaching, currently sharing knowledge in discrete mathematics and programming to help others learn and grow.</p>
 
-        <p class="small">Tech highlights: C, C++, C#, Python, Basic Linux Operations, Data Structures and Algorithms.</p>
+        <p class="small"></p>
 
         <div style="display:flex; gap:12px; align-items:center; margin-top:14px; flex-wrap:wrap">
           <div style="background:var(--accent-dim); color:var(--accent); padding:8px 12px; border-radius:10px; font-weight:700">Available for internships</div>
@@ -238,35 +96,72 @@
     </div>
   </main>
 
+  <section id="about" class="reveal">
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <div>
+          <div class="section-title">About Wency</div>
+          <div class="section-sub">:: More about him</div>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:18px">
+
+        <div class="card">
+          <h3>July 4, 2005 · Quezon City, Philippines</h3>
+          <div class="muted">Birthdate & birthplace</div>
+        </div>
+
+        <div class="card">
+          <h3>1.65m · 49kg</h3> 
+          <div class="muted">Height & weight (metric)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work-exp" class="reveal">
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <div>
+          <div class="section-title">Work Experiences</div>
+          <div class="section-sub">::   Previous and present contracts</div>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:18px">
+        <div class="card">
+          <h3>Atlanta Industries, Inc.</h3>
+          <div class="muted">Production Worker · 2023 - 2024</div>
+        </div>
+
+        <div class="card">
+          <h3>Foodpanda (Delivery Hero, Inc.)</h3>
+          <div class="muted">Delivery Biker · 2024 - present</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Education -->
   <section id="education" class="reveal">
     <div class="container">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
         <div>
           <div class="section-title">Education</div>
-          <div class="section-sub">My academic journey and institutions</div>
+          <div class="section-sub">:: My academic journey and institutions</div>
         </div>
       </div>
 
       <div class="grid" style="margin-top:18px">
         <div class="card">
-          <h3>Concepcion Integrated School</h3>
-          <div class="muted">TLE - Cookery · Graduated 2021</div>
-        </div>
-
-        <div class="card">
           <h3>Marikina Institute of Technology</h3>
-          <div class="muted">General Academic Strand · Graduated 2023</div>
-        </div>
-
-        <div class="card">
-          <h3>Pambansa-Demokratikong Paaralan</h3>
-          <div class="muted">National Democratic People's Education · 2025</div>
+          <div class="muted">General Academic Strand · Senior High School</div>
         </div>
 
         <div class="card">
           <h3>EARIST (Eulogio "Amang" Rodriguez Institute of Science and Technology)</h3>
-          <div class="muted">BS Computer Science · Batch 2028</div>
+          <div class="muted">BS Computer Science · Undergraduate</div>
         </div>
       </div>
     </div>
@@ -276,52 +171,39 @@
   <section id="skills" class="reveal">
     <div class="container">
       <div class="section-title">Skills & Expertise</div>
-      <div class="section-sub">Programming languages and frameworks</div>
+      <div class="section-sub">:: Programming languages, subjects & frameworks</div>
+
+      <div class="card">
+        <h3>Tutoring</h3>
+        <div class="muted" style="margin-bottom:8px">Subjects</div>
+        <ul class="skill-list">
+          <li class="skill-item"><strong>Software Technology (MS Office)</strong><span class="muted">Easy</span></li>
+          <li class="skill-item"><strong>Binary, Hex, Dec, Oct</strong><span class="muted">Easy</span></li>
+          <li class="skill-item"><strong>Computer Programming (Java)</strong><span class="muted">Easy</span></li>
+          <li class="skill-item"><strong>Discrete Mathematics</strong><span class="muted">Medium</span></li>
+          <li class="skill-item"><strong>Computer Programming (C)</strong><span class="muted">Intermediate</span></li>
+          <li class="skill-item"><strong>Computer Programming (C++)</strong><span class="muted">Intermediate</span></li>
+        </ul>
+      </div>
 
       <div class="grid" style="margin-top:18px">
         <div class="card">
-          <h3>Low-Level Programming</h3>
+          <h3>Software Development</h3>
           <div class="muted" style="margin-bottom:8px">Systems & performance-focused</div>
           <ul class="skill-list" style="margin-top:6px">
-            <li class="skill-item"><strong>C</strong><span class="muted">Systems / Embedded</span></li>
-            <li class="skill-item"><strong>C++</strong><span class="muted">Algorithms / Competitive</span></li>
+            <li class="skill-item"><strong>Javascript & PHP</strong><span class="muted">Web-based Systems</span></li>
+            <li class="skill-item"><strong>C# & Java</strong><span class="muted">Local Business Systems</span></li>
           </ul>
         </div>
 
-        <div class="card">
-          <h3>Object-Oriented / General</h3>
-          <div class="muted" style="margin-bottom:8px">Design & clean code</div>
-          <ul class="skill-list">
-            <li class="skill-item"><strong>Java</strong><span class="muted">OOP concepts</span></li>
-            <li class="skill-item"><strong>C#</strong><span class="muted">Unity / Game Dev</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Competitive Programming</h3>
-          <div class="muted" style="margin-bottom:8px">Problem solving & algorithms</div>
-          <ul class="skill-list">
-            <li class="skill-item"><strong>C++</strong><span class="muted">Primary contest language</span></li>
-            <li class="skill-item"><strong>Algorithm Design</strong><span class="muted">Graphs, DS, DP</span></li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Game Development</h3>
-          <div class="muted" style="margin-bottom:8px">Projects & engine experience</div>
-          <ul class="skill-list">
-            <li class="skill-item"><strong>Luau</strong><span class="muted">Roblox Studio</span></li>
-            <li class="skill-item"><strong>C#</strong><span class="muted">Unity</span></li>
-            <li class="skill-item"><strong>Java</strong><span class="muted">Personal projects</span></li>
-          </ul>
-        </div>
+      
 
         <div class="card">
           <h3>Hardware and Computer Maintenance</h3>
           <div class="muted" style="margin-bottom:8px">Fixing common PC problems</div>
           <ul class="skill-list">
             <li class="skill-item"><strong>System Unit Repair</strong><span class="muted">PC overhaul</span></li>
-            <li class="skill-item"><strong>PC Maintenance</strong><span class="muted">Cleaning and Formatting</span></li>
+            <li class="skill-item"><strong>PC Maintenance</strong><span class="muted">Maintain smoothness</span></li>
           </ul>
         </div>
       </div>
@@ -331,8 +213,8 @@
   <!-- Projects Finished -->
 <section id="projects" class="reveal">
   <div class="container">
-    <div class="section-title">Projects Finished</div>
-    <div class="section-sub">Selected completed work</div>
+    <div class="section-title">Featured Projects</div>
+    <div class="section-sub">:: Selected completed work</div>
 
     <div class="grid" style="margin-top:18px">
       <div class="card">
@@ -403,132 +285,12 @@
 
   <footer>
     <div class="container">
-      <div>&copy; 2025 Wency Herrera</div>
+      <div>&copy; 2025 Wency | codename: "attywenn"</div>
       <div class="muted" style="margin-top:6px">Will always be open-source.</div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script>
-    // Mobile menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    let menuOpen = false;
-    hamburger?.addEventListener('click', () => {
-      menuOpen = !menuOpen;
-      mobileMenu.style.display = menuOpen ? 'block' : 'none';
-      hamburger.setAttribute('aria-expanded', String(menuOpen));
-    });
-
-    // Smooth internal anchor scroll fallback for older browsers
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if(!href || href === '#') return;
-        const target = document.querySelector(href);
-        if(target){
-          e.preventDefault();
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-          if(menuOpen){ menuOpen = false; mobileMenu.style.display = 'none'; hamburger.setAttribute('aria-expanded','false') }
-        }
-      });
-    });
-
-    // Simple reveal on scroll
-    function revealOnScroll() {
-      document.querySelectorAll('.reveal').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const offset = 110;
-        if(rect.top < (window.innerHeight - offset)) el.classList.add('active');
-      });
-    }
-    window.addEventListener('scroll', revealOnScroll, {passive:true});
-    window.addEventListener('resize', revealOnScroll);
-    // initial
-    setTimeout(revealOnScroll, 150);
-
-    /* Canvas particle background (subtle, performant) */
-    (function(){
-      const canvas = document.getElementById('bgCanvas');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let W = canvas.width = innerWidth;
-      let H = canvas.height = innerHeight;
-      const count = Math.max(60, Math.floor((W*H)/12000)); // responsive
-      const particles = [];
-
-      function rand(min,max){ return Math.random()*(max-min)+min }
-
-      class P {
-        constructor(){
-          this.x = rand(0, W);
-          this.y = rand(0, H);
-          this.r = rand(0.6, 2.2);
-          this.vx = rand(-0.2, 0.2);
-          this.vy = rand(-0.2, 0.2);
-          this.alpha = rand(0.18, 0.6);
-        }
-        update(){
-          this.x += this.vx;
-          this.y += this.vy;
-          if(this.x < -20) this.x = W + 20;
-          if(this.x > W + 20) this.x = -20;
-          if(this.y < -20) this.y = H + 20;
-          if(this.y > H + 20) this.y = -20;
-        }
-        draw(){
-          ctx.beginPath();
-          ctx.fillStyle = 'rgba(0,209,255,' + this.alpha + ')';
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-          ctx.fill();
-        }
-      }
-
-      function init(){
-        particles.length = 0;
-        for(let i=0;i<count;i++) particles.push(new P());
-      }
-
-      function connect(){
-        for(let i=0;i<particles.length;i++){
-          for(let j=i+1;j<particles.length;j++){
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if(d < 140){
-              ctx.strokeStyle = 'rgba(0,209,255,' + (0.05 + (0.14 * (1 - d/140))) + ')';
-              ctx.lineWidth = 0.6;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
-        }
-      }
-
-      let rafId;
-      function loop(){
-        ctx.clearRect(0,0,W,H);
-        for(const p of particles){ p.update(); p.draw(); }
-        connect();
-        rafId = requestAnimationFrame(loop);
-      }
-
-      // Resize handler with debounce
-      let to;
-      window.addEventListener('resize', () => {
-        clearTimeout(to);
-        to = setTimeout(() => {
-          W = canvas.width = innerWidth;
-          H = canvas.height = innerHeight;
-          init();
-        }, 120);
-      });
-
-      init();
-      loop();
-    })();
-  </script>
+   <script src="script.js"></script>
 </body>
 </html>

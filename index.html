@@ -12,285 +12,341 @@
   <meta property="og:type" content="website">
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-
-  <!-- styles.css-->
-   <link rel="stylesheet" href="styles.css">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Canvas Background -->
-  <div class="bg-wrap">
-    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+  <!-- Background Effects -->
+  <div class="bg-effects">
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
   </div>
 
-  <!-- Nav -->
+  <!-- Navigation -->
   <nav>
-    <div class="nav-inner container">
+    <div class="nav-container">
       <div class="brand">
-        <div>
-          <div class="title">Wency Herrera</div>
-          <div class="meta" style="font-size:0.78rem;">CS · Software Developer</div>
+        <div class="brand-text">
+          <h1>Wency Herrera</h1>
+          <p>CS Developer & Systems Programmer</p>
         </div>
       </div>
-
-      <div style="display:flex; align-items:center; gap:12px">
-        <div class="nav-links" role="navigation" aria-label="Primary">
-          <a href="#home">Home</a>
-          <a href="#education">Education</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
-        </div>
-
-        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-        </button>
+      
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
       </div>
+      
+      <button class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav>
 
-  <!-- Mobile menu (hidden by default) -->
-  <div id="mobileMenu" style="display:none; position:fixed; inset:64px 16px auto 16px; z-index:1100;">
-    <div style="background:var(--card); border-radius:12px; padding:12px; border:1px solid rgba(255,255,255,0.02);">
-      <a href="#home" class="btn-ghost btn" style="display:block; width:100%; margin-bottom:6px">Home</a>
-      <a href="#education" class="btn-ghost btn" style="display:block; width:100%; margin-bottom:6px">Education</a>
-      <a href="#skills" class="btn-ghost btn" style="display:block; width:100%; margin-bottom:6px">Skills</a>
-      <a href="#contact" class="btn-ghost btn" style="display:block; width:100%;">Contact</a>
-    </div>
-  </div>
-
-  <!-- Hero -->
-  <main class="hero" id="home">
-    <div class="hero-inner container">
-      <aside class="profile-card reveal" style="--delay:0.05s">
-        <div class="avatar" aria-hidden="false">
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-container">
+      <div class="hero-text reveal">
+        <h2>Building the future with <span>code & creativity</span></h2>
+        <p>Computer Scientist with strong mastery of C++ and solid foundation in computer hardware maintenance. Passionate about teaching discrete mathematics and programming to help others learn and grow in tech.</p>
+        
+        <div>
+          <span class="highlight"><i class="fas fa-check-circle"></i> Available for internships</span>
+          <span class="highlight"><i class="fas fa-map-marker-alt"></i> Marikina City, PH</span>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+          <a href="#contact" class="btn btn-primary" style="margin-right: 1rem;">Get In Touch</a>
+          <a href="#services" class="btn btn-outline">View Services</a>
+        </div>
+      </div>
+      
+      <div class="profile-card reveal">
+        <div class="avatar">
           <img src="img/img_wenx.jpg" alt="Wency Herrera">
         </div>
-        <div class="name">Wency Herrera</div>
-        <div class="role">Computer Scientist · Systems Programmer · Software Developer</div>
-
-        <div class="cta-row" style="margin-top:12px">
-          <a href="#contact" class="btn btn-primary" title="Get in touch">Get In Touch</a>
-          <a href="#skills" class="btn btn-outline" title="View skills">View Skills</a>
-          <a href="resu_wenx.pdf" download class="btn btn-ghost" title="Download resume">Download Resume</a>
+        <div class="profile-name">Wency Herrera</div>
+        <div class="profile-title">Computer Scientist · Systems Programmer</div>
+        
+        <div class="btn-container">
+          <a href="#contact" class="btn btn-primary">Contact Me</a>
+          <a href="#skills" class="btn btn-outline">View Skills</a>
+          <a href="resu_wenx.pdf" download class="btn btn-outline">Download Resume</a>
         </div>
-
-        <div class="muted" style="margin-top:14px; text-align:center; font-size:0.92rem">
-          Programming languages: C, C++, Java, MySQL <br>
-          Human languages: English (B1), Filipino (C2)
-        </div>
-      </aside>
-
-      <section class="hero-text reveal" style="--delay:0.1s">
-        <h1>/> Build it with attywenn</h1>
-        <p class="lead">He is a dedicated Computer Scientist with strong mastery of C++ and a solid foundation in computer hardware maintenance and system unit repair. Passionate about teaching, currently sharing knowledge in discrete mathematics and programming to help others learn and grow.</p>
-
-        <p class="small"></p>
-
-        <div style="display:flex; gap:12px; align-items:center; margin-top:14px; flex-wrap:wrap">
-          <div style="background:var(--accent-dim); color:var(--accent); padding:8px 12px; border-radius:10px; font-weight:700">Available for internships</div>
-          <div style="color:var(--muted)">Marikina City, Philippines · <span style="color:var(--muted)">wnciplays@gmail.com</span></div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <section id="about" class="reveal">
-    <div class="container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <div>
-          <div class="section-title">About Wency</div>
-          <div class="section-sub">:: More about him</div>
-        </div>
-      </div>
-
-      <div class="grid" style="margin-top:18px">
-
-        <div class="card">
-          <h3>July 4, 2005 · Quezon City, Philippines</h3>
-          <div class="muted">Birthdate & birthplace</div>
-        </div>
-
-        <div class="card">
-          <h3>1.65m · 49kg</h3> 
-          <div class="muted">Height & weight (metric)</div>
+        
+        <div style="color: var(--muted); font-size: 0.9rem;">
+          <p><i class="fas fa-code"></i> Programming: C, C++, Java, MySQL</p>
+          <p><i class="fas fa-language"></i> Languages: English (B1), Filipino (C2)</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="work-exp" class="reveal">
-    <div class="container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <div>
-          <div class="section-title">Work Experiences</div>
-          <div class="section-sub">::   Previous and present contracts</div>
-        </div>
-      </div>
-
-      <div class="grid" style="margin-top:18px">
-        <div class="card">
-          <h3>Atlanta Industries, Inc.</h3>
-          <div class="muted">Production Worker · 2023 - 2024</div>
-        </div>
-
-        <div class="card">
-          <h3>Foodpanda (Delivery Hero, Inc.)</h3>
-          <div class="muted">Delivery Biker · 2024 - present</div>
-        </div>
-      </div>
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-header">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-sub">Get to know more about my background and experience</p>
     </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education" class="reveal">
-    <div class="container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-        <div>
-          <div class="section-title">Education</div>
-          <div class="section-sub">:: My academic journey and institutions</div>
+    
+    <div class="card-grid">
+      <div class="card reveal">
+        <div class="card-icon">
+          <i class="fas fa-user"></i>
         </div>
+        <h3>Personal Details</h3>
+        <p><strong>Birthdate:</strong> July 4, 2005</p>
+        <p><strong>Birthplace:</strong> Quezon City, Philippines</p>
+        <p><strong>Height & Weight:</strong> 1.65m · 49kg</p>
       </div>
-
-      <div class="grid" style="margin-top:18px">
-        <div class="card">
-          <h3>Marikina Institute of Technology</h3>
-          <div class="muted">General Academic Strand · Senior High School</div>
-        </div>
-
-        <div class="card">
-          <h3>EARIST (Eulogio "Amang" Rodriguez Institute of Science and Technology)</h3>
-          <div class="muted">BS Computer Science · Undergraduate</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="reveal">
-    <div class="container">
-      <div class="section-title">Skills & Expertise</div>
-      <div class="section-sub">:: Programming languages, subjects & frameworks</div>
-
-      <div class="card">
-        <h3>Tutoring</h3>
-        <div class="muted" style="margin-bottom:8px">Subjects</div>
-        <ul class="skill-list">
-          <li class="skill-item"><strong>Software Technology (MS Office)</strong><span class="muted">Easy</span></li>
-          <li class="skill-item"><strong>Binary, Hex, Dec, Oct</strong><span class="muted">Easy</span></li>
-          <li class="skill-item"><strong>Computer Programming (Java)</strong><span class="muted">Easy</span></li>
-          <li class="skill-item"><strong>Discrete Mathematics</strong><span class="muted">Medium</span></li>
-          <li class="skill-item"><strong>Computer Programming (C)</strong><span class="muted">Intermediate</span></li>
-          <li class="skill-item"><strong>Computer Programming (C++)</strong><span class="muted">Intermediate</span></li>
-        </ul>
-      </div>
-
-      <div class="grid" style="margin-top:18px">
-        <div class="card">
-          <h3>Software Development</h3>
-          <div class="muted" style="margin-bottom:8px">Systems & performance-focused</div>
-          <ul class="skill-list" style="margin-top:6px">
-            <li class="skill-item"><strong>Javascript & PHP</strong><span class="muted">Web-based Systems</span></li>
-            <li class="skill-item"><strong>C# & Java</strong><span class="muted">Local Business Systems</span></li>
-          </ul>
-        </div>
-
       
-
-        <div class="card">
-          <h3>Hardware and Computer Maintenance</h3>
-          <div class="muted" style="margin-bottom:8px">Fixing common PC problems</div>
-          <ul class="skill-list">
-            <li class="skill-item"><strong>System Unit Repair</strong><span class="muted">PC overhaul</span></li>
-            <li class="skill-item"><strong>PC Maintenance</strong><span class="muted">Maintain smoothness</span></li>
-          </ul>
+      <div class="card reveal">
+        <div class="card-icon">
+          <i class="fas fa-graduation-cap"></i>
         </div>
+        <h3>Education</h3>
+        <p><strong>Senior High School:</strong> Marikina Institute of Technology (General Academic Strand)</p>
+        <p><strong>Undergraduate:</strong> EARIST - BS Computer Science</p>
+      </div>
+      
+      <div class="card reveal">
+        <div class="card-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <h3>Work Experience</h3>
+        <p><strong>Production Worker:</strong> Atlanta Industries, Inc. (2023 - 2024)</p>
+        <p><strong>Delivery Biker:</strong> Foodpanda (2024 - Present)</p>
       </div>
     </div>
   </section>
 
-  <!-- Projects Finished -->
-<section id="projects" class="reveal">
-  <div class="container">
-    <div class="section-title">Featured Projects</div>
-    <div class="section-sub">:: Selected completed work</div>
-
-    <div class="grid" style="margin-top:18px">
-      <div class="card">
-        <h3>BatoBatoPick</h3>
-        <div class="muted">Simple CLI game written in C++</div>
-        <a href="https://github.com/attywenn/BatoBatoPick" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           style="display:inline-block; margin-top:10px; color:var(--accent); font-weight:700; text-decoration:none">
-          View on GitHub →
-        </a>
-      </div>
-
-      <div class="grid" style="margin-top:18px">
-      <div class="card">
-        <h3>Java CRUD with MySQL-XAMPP</h3>
-        <div class="muted">Small CRUD Project with SQL Database</div>
-        <a href="https://github.com/attywenn/Java-basic-CRUD-with-SQLConnection" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           style="display:inline-block; margin-top:10px; color:var(--accent); font-weight:700; text-decoration:none">
-          View on GitHub →
-        </a>
-      </div>
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="section-header">
+      <h2 class="section-title">Technical Skills</h2>
+      <p class="section-sub">Programming languages, frameworks, and technical expertise</p>
     </div>
-  </div>
-</section>
-
-
-
-  <!-- Contact -->
-  <section id="contact" class="reveal">
-    <div class="container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
-        <div>
-          <div class="section-title">Get In Touch</div>
-          <div class="section-sub">Leave a private message</div>
+    
+    <div class="skills-services-container">
+      <div class="reveal">
+        <div class="skill-category">
+          <h3 style="margin-bottom: 1.5rem; color: var(--accent-light);">Programming Languages</h3>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">C++</span>
+              <span class="skill-level">Advanced</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">C</span>
+              <span class="skill-level">Intermediate</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">Java</span>
+              <span class="skill-level">Intermediate</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">JavaScript & PHP</span>
+              <span class="skill-level">Web Systems</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">C# & Java</span>
+              <span class="skill-level">Business Systems</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">MySQL</span>
+              <span class="skill-level">Database Management</span>
+            </li>
+          </ul>
         </div>
-
-        <div style="text-align:right">
-          <div class="muted">Email</div>
-          <div style="font-weight:800">wnciplays@gmail.com</div>
+        
+        <div class="skill-category">
+          <h3 style="margin-bottom: 1.5rem; color: var(--accent-light);">Hardware & Maintenance</h3>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-name">System Unit Repair</span>
+              <span class="skill-level">PC Overhaul</span>
+            </li>
+            <li class="skill-item">
+              <span class="skill-name">PC Maintenance</span>
+              <span class="skill-level">Performance Optimization</span>
+            </li>
+          </ul>
         </div>
       </div>
-
-      <div style="margin-top:18px; display:flex; gap:18px; align-items:center; flex-wrap:wrap;">
-        <div class="card" style="min-width:220px;">
-          <h3>Location</h3>
-          <div class="muted">Marikina City, Philippines</div>
+      
+      <!-- Services Section (separated from skills) -->
+      <div id="services" class="reveal">
+        <div class="section-header">
+          <h2 class="section-title">Services Offered</h2>
+          <p class="section-sub">Professional services I provide</p>
         </div>
-
-        <div class="card" style="flex:1;">
-          <h3>Social</h3>
-          <div class="muted">Find me on GitHub and Facebook</div>
-          <div class="socials" style="margin-top:12px">
-            <a href="https://www.github.com/attywenn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.facebook.com/herrerawency" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <!-- puwede pa magdagdag -->
+        
+        <div class="services-highlight">
+          <div class="service-card">
+            <h3><i class="fas fa-chalkboard-teacher"></i> Tutoring & Mentoring</h3>
+            <p>Personalized tutoring in computer science subjects including discrete mathematics, programming fundamentals, and software development concepts.</p>
+            <div class="service-tag">Subjects: Discrete Math, Java, C, C++, MS Office</div>
+          </div>
+          
+          <div class="service-card">
+            <h3><i class="fas fa-laptop-code"></i> Software Development</h3>
+            <p>Building efficient software solutions for businesses and individuals, focusing on performance and reliability.</p>
+            <div class="service-tag">Technologies: C++, Java, MySQL, Web Systems</div>
+          </div>
+          
+          <div class="service-card">
+            <h3><i class="fas fa-tools"></i> Hardware Maintenance</h3>
+            <p>PC repair, system unit overhaul, and maintenance services to keep computers running smoothly and efficiently.</p>
+            <div class="service-tag">Services: Repair, Optimization, Maintenance</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="section-header">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">Selected completed work and personal projects</p>
+    </div>
+    
+    <div class="card-grid">
+      <div class="card project-card reveal">
+        <div class="card-icon">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <h3>BatoBatoPick</h3>
+        <p>A simple CLI game written in C++ that demonstrates fundamental programming concepts and user interaction.</p>
+        <a href="https://github.com/attywenn/BatoBatoPick" target="_blank" rel="noopener noreferrer" class="project-link">
+          View on GitHub <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="card project-card reveal">
+        <div class="card-icon">
+          <i class="fas fa-database"></i>
+        </div>
+        <h3>Java CRUD with MySQL-XAMPP</h3>
+        <p>A small CRUD project with SQL database connectivity, demonstrating database operations and Java application development.</p>
+        <a href="https://github.com/attywenn/Java-basic-CRUD-with-SQLConnection" target="_blank" rel="noopener noreferrer" class="project-link">
+          View on GitHub <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <div class="card project-card reveal">
+        <div class="card-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <h3>More Projects Coming Soon</h3>
+        <p>Currently working on new projects to expand my portfolio and showcase additional skills in systems programming and software development.</p>
+        <a href="https://github.com/attywenn" target="_blank" rel="noopener noreferrer" class="project-link">
+          Visit My GitHub <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-header">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-sub">Let's work together on your next project</p>
+    </div>
+    
+    <div class="contact-container">
+      <div class="contact-info reveal">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div>
+            <h3>Email</h3>
+            <p>wnciplays@gmail.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div>
+            <h3>Location</h3>
+            <p>Marikina City, Philippines</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div>
+            <h3>Availability</h3>
+            <p>Open for internships and freelance projects</p>
+          </div>
+        </div>
+        
+        <div>
+          <h3 style="margin-bottom: 1rem;">Connect with me</h3>
+          <div class="social-links">
+            <a href="https://www.github.com/attywenn" target="_blank" rel="noopener noreferrer" class="social-link">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.facebook.com/herrerawency" target="_blank" rel="noopener noreferrer" class="social-link">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="mailto:wnciplays@gmail.com" class="social-link">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card reveal" style="background: var(--accent-dim); border-color: rgba(157, 78, 221, 0.3);">
+        <div class="card-icon" style="background: rgba(255, 255, 255, 0.1);">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <h3>Why Work With Me?</h3>
+        <p>I combine strong technical skills in low-level programming with practical experience in hardware maintenance. My teaching experience means I can explain complex concepts clearly and work effectively in team environments.</p>
+        
+        <div style="margin-top: 1.5rem;">
+          <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+            <div style="width: 10px; height: 10px; background: var(--accent-light); border-radius: 50%; margin-right: 10px;"></div>
+            <span>Strong foundation in C++ and systems programming</span>
+          </div>
+          <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+            <div style="width: 10px; height: 10px; background: var(--accent-light); border-radius: 50%; margin-right: 10px;"></div>
+            <span>Practical hardware maintenance and repair skills</span>
+          </div>
+          <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+            <div style="width: 10px; height: 10px; background: var(--accent-light); border-radius: 50%; margin-right: 10px;"></div>
+            <span>Experience teaching and mentoring others</span>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <div style="width: 10px; height: 10px; background: var(--accent-light); border-radius: 50%; margin-right: 10px;"></div>
+            <span>Available for internships and collaborative projects</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer>
-    <div class="container">
-      <div>&copy; 2025 Wency | codename: "attywenn"</div>
-      <div class="muted" style="margin-top:6px">Will always be open-source.</div>
+    <div class="footer-text">
+      <p>&copy; 2025 Wency Herrera | codename: "attywenn"</p>
+      <p style="margin-top: 0.5rem;">Will always be open-source.</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
-   <script src="script.js"></script>
+  <script src="script.js">
+    
+  </script>
 </body>
 </html>

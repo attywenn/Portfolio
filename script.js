@@ -1,119 +1,95 @@
 // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.querySelector('.nav-links');
     let menuOpen = false;
-    hamburger?.addEventListener('click', () => {
+    
+    hamburger.addEventListener('click', () => {
       menuOpen = !menuOpen;
-      mobileMenu.style.display = menuOpen ? 'block' : 'none';
-      hamburger.setAttribute('aria-expanded', String(menuOpen));
+      navLinks.style.display = menuOpen ? 'flex' : 'none';
+      hamburger.setAttribute('aria-expanded', menuOpen);
+      
+      // Make mobile menu responsive
+      if (menuOpen) {
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '100%';
+        navLinks.style.left = '0';
+        navLinks.style.width = '100%';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.backgroundColor = 'var(--card)';
+        navLinks.style.padding = '2rem';
+        navLinks.style.borderTop = '1px solid rgba(157, 78, 221, 0.1)';
+        navLinks.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+        navLinks.style.gap = '1.5rem';
+      } else {
+        navLinks.style = '';
+      }
     });
-
-    // Smooth internal anchor scroll fallback for older browsers
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if(!href || href === '#') return;
-        const target = document.querySelector(href);
-        if(target){
-          e.preventDefault();
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-          if(menuOpen){ menuOpen = false; mobileMenu.style.display = 'none'; hamburger.setAttribute('aria-expanded','false') }
+    
+    // Close menu on resize if it's open
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && menuOpen) {
+        menuOpen = false;
+        navLinks.style.display = 'flex';
+        navLinks.style = '';
+      } else if (window.innerWidth <= 768 && !menuOpen) {
+        navLinks.style.display = 'none';
+      }
+    });
+    
+    // Initial check for mobile
+    if (window.innerWidth <= 768) {
+      navLinks.style.display = 'none';
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Close mobile menu if open
+          if (menuOpen) {
+            menuOpen = false;
+            navLinks.style.display = 'none';
+            navLinks.style = '';
+          }
+          
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
         }
       });
     });
-
-    // Simple reveal on scroll
+    
+    // Reveal animations on scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    
     function revealOnScroll() {
-      document.querySelectorAll('.reveal').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const offset = 110;
-        if(rect.top < (window.innerHeight - offset)) el.classList.add('active');
+      revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
       });
     }
-    window.addEventListener('scroll', revealOnScroll, {passive:true});
-    window.addEventListener('resize', revealOnScroll);
-    // initial
-    setTimeout(revealOnScroll, 150);
-
-    /* Canvas particle background (subtle, performant) */
-    (function(){
-      const canvas = document.getElementById('bgCanvas');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let W = canvas.width = innerWidth;
-      let H = canvas.height = innerHeight;
-      const count = Math.max(60, Math.floor((W*H)/12000)); // responsive
-      const particles = [];
-
-      function rand(min,max){ return Math.random()*(max-min)+min }
-
-      class P {
-        constructor(){
-          this.x = rand(0, W);
-          this.y = rand(0, H);
-          this.r = rand(0.6, 2.2);
-          this.vx = rand(-0.2, 0.2);
-          this.vy = rand(-0.2, 0.2);
-          this.alpha = rand(0.18, 0.6);
-        }
-        update(){
-          this.x += this.vx;
-          this.y += this.vy;
-          if(this.x < -20) this.x = W + 20;
-          if(this.x > W + 20) this.x = -20;
-          if(this.y < -20) this.y = H + 20;
-          if(this.y > H + 20) this.y = -20;
-        }
-        draw(){
-          ctx.beginPath();
-          ctx.fillStyle = 'rgba(0,209,255,' + this.alpha + ')';
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-          ctx.fill();
-        }
-      }
-
-      function init(){
-        particles.length = 0;
-        for(let i=0;i<count;i++) particles.push(new P());
-      }
-
-      function connect(){
-        for(let i=0;i<particles.length;i++){
-          for(let j=i+1;j<particles.length;j++){
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if(d < 140){
-              ctx.strokeStyle = 'rgba(0,209,255,' + (0.05 + (0.14 * (1 - d/140))) + ')';
-              ctx.lineWidth = 0.6;
-              ctx.beginPath();
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
-        }
-      }
-
-      let rafId;
-      function loop(){
-        ctx.clearRect(0,0,W,H);
-        for(const p of particles){ p.update(); p.draw(); }
-        connect();
-        rafId = requestAnimationFrame(loop);
-      }
-
-      // Resize handler with debounce
-      let to;
-      window.addEventListener('resize', () => {
-        clearTimeout(to);
-        to = setTimeout(() => {
-          W = canvas.width = innerWidth;
-          H = canvas.height = innerHeight;
-          init();
-        }, 120);
-      });
-
-      init();
-      loop();
-    })();
+    
+    // Set initial state for reveal elements
+    revealElements.forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(20px)';
+      element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    });
+    
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+    
+    // Initial check
+    revealOnScroll();
